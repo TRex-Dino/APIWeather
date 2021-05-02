@@ -9,13 +9,14 @@ import Foundation
 
 struct WeatherManager {
     static let shared = WeatherManager()
+    var name = ""
     private let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=737d31778476ecdaa57002f152c41089&units=metric"
 
 //    func fetchWeather(cityName: String) {
 //        let urlString = "\(weatherURL)&q=\(cityName)"
 //        performRequest(urlString: urlString)
 //    }
-    func fetchData<T: Decodable>(cityName: String, type: T.Type, complition: @escaping(T)->Void) {
+    func fetchData(cityName: String, completion: ()->()) {
         let urlString = "\(weatherURL)&q=\(cityName)"
         guard let url = URL(string: urlString) else { return }
         
@@ -26,12 +27,6 @@ struct WeatherManager {
             }
             guard let data = data else { return }
             
-            do {
-                let weather = try JSONDecoder().decode(type, from: data)
-                complition(weather)
-            } catch let error {
-                print(error.localizedDescription)
-            }
         }.resume()
     }
     

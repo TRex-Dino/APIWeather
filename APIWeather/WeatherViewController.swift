@@ -17,12 +17,10 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        WeatherManager.shared.fetchData(cityName: "Moscow", type: WeatherData.self) { (<#Decodable#>) in
-            <#code#>
-        }
     }
 
     @IBAction func searchPressed(_ sender: UIButton) {
+        
     }
     
 }
