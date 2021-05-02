@@ -10,5 +10,5 @@ import Foundation
 struct WeatherModel {
     let name: String
     let temp: String
-    }
+    
 }
