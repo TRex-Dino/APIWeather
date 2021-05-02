@@ -8,31 +8,25 @@
 import UIKit
 
 class WeatherViewController: UIViewController {
-
+    
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var cityLabel: UILabel!
     @IBOutlet var weatherLabel: UILabel!
     
     @IBOutlet var searchTextField: UITextField!
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
     @IBAction func searchPressed(_ sender: UIButton) {
-        fetchWeather()
+        //        searchTextField.text ?? ""
+        searchTextField.endEditing(true)
     }
     
 }
 extension WeatherViewController {
     
-
-    private func fetchWeather() {
+    private func fetchWeather(cityName: String) {
         let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=737d31778476ecdaa57002f152c41089&units=metric"
         
-        let urlString = "\(weatherURL)&q=\(searchTextField.text ?? "")"
+        let urlString = "\(weatherURL)&q=\(cityName)"
         performRequest(urlString: urlString)
     }
     
@@ -71,12 +65,14 @@ extension WeatherViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let city = searchTextField.text else { return }
-        
+        if let city = searchTextField.text {
+            if city.contains(" ") {
+                let newCity = city.components(separatedBy: " ").joined(separator: "+")
+                fetchWeather(cityName: newCity)
+            } else {
+                fetchWeather(cityName: city)
+            }
+        }
+        searchTextField.text = ""
     }
-    
-    func configuration(with weather: WeatherData) {
-    }
-    
-    
 }

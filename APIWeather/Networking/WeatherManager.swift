@@ -31,4 +31,18 @@ struct WeatherManager {
         }.resume()
     }
     
+//    func fetchData(cityName: String, completion: @escaping(WeatherModel)->()) {
+//        let urlString = "\(weatherURL)&q=\(cityName)"
+//        guard let url = URL(string: urlString) else { return }
+//        
+//        URLSession.shared.dataTask(with: url) { (data, _, error) in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                return
+//            }
+//            guard let data = data else { return }
+//            
+//        }.resume()
+//    }
+    
 }
