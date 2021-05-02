@@ -16,7 +16,7 @@ struct WeatherManager {
 //        let urlString = "\(weatherURL)&q=\(cityName)"
 //        performRequest(urlString: urlString)
 //    }
-    func fetchData(cityName: String, completion: ()->()) {
+    func fetchData(cityName: String, completion: @escaping(WeatherModel)->()) {
         let urlString = "\(weatherURL)&q=\(cityName)"
         guard let url = URL(string: urlString) else { return }
         
