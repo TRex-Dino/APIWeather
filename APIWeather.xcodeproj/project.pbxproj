@@ -41,6 +41,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A0A3360263E982B0067D3C0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0A639B97263D911400BF0489 /* WeatherManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0A0A3361263E984C0067D3C0 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0A228D31263C9F6800B162E6 /* Main.storyboard */,
+				0A228D36263C9F6900B162E6 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		0A0A3362263E98590067D3C0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A228D2F263C9F6800B162E6 /* WeatherViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0A0A3363263E988F0067D3C0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0A228D34263C9F6900B162E6 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0A0A3364263E989F0067D3C0 /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
+				0A228D2B263C9F6800B162E6 /* AppDelegate.swift */,
+				0A228D2D263C9F6800B162E6 /* SceneDelegate.swift */,
+			);
+			path = Supporting;
+			sourceTree = "<group>";
+		};
 		0A228D1F263C9F6800B162E6 = {
 			isa = PBXGroup;
 			children = (
@@ -60,13 +102,12 @@
 		0A228D2A263C9F6800B162E6 /* APIWeather */ = {
 			isa = PBXGroup;
 			children = (
+				0A0A3360263E982B0067D3C0 /* Networking */,
 				0A639B96263D90F800BF0489 /* Models */,
-				0A228D2B263C9F6800B162E6 /* AppDelegate.swift */,
-				0A228D2D263C9F6800B162E6 /* SceneDelegate.swift */,
-				0A228D2F263C9F6800B162E6 /* WeatherViewController.swift */,
-				0A228D31263C9F6800B162E6 /* Main.storyboard */,
-				0A228D34263C9F6900B162E6 /* Assets.xcassets */,
-				0A228D36263C9F6900B162E6 /* LaunchScreen.storyboard */,
+				0A0A3364263E989F0067D3C0 /* Supporting */,
+				0A0A3362263E98590067D3C0 /* Controllers */,
+				0A0A3361263E984C0067D3C0 /* Storyboards */,
+				0A0A3363263E988F0067D3C0 /* Resources */,
 				0A228D39263C9F6900B162E6 /* Info.plist */,
 			);
 			path = APIWeather;
@@ -75,7 +116,6 @@
 		0A639B96263D90F800BF0489 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0A639B97263D911400BF0489 /* WeatherManager.swift */,
 				0A639B9C263D9E3D00BF0489 /* WeatherData.swift */,
 			);
 			path = Models;
