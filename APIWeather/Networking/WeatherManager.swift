@@ -8,41 +8,34 @@
 import Foundation
 
 class WeatherManager {
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=737d31778476ecdaa57002f152c41089&units=metric"
-
-    func fetchWeather(cityName: String) {
-        let urlString = "\(weatherURL)&q=\(cityName)"
-        performRequest(urlString: urlString)
-    }
+    static let shared = WeatherManager()
     
-    func performRequest(urlString: String) {
+    private init() {}
+    
+    func fetchData(from cityName: String, with complition: @escaping(WeatherData)->Void) {
+        let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=737d31778476ecdaa57002f152c41089&units=metric"
+        let urlString = "\(weatherURL)&q=\(cityName)"
+        
         guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return }
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data else {return}
+            
             do {
-                let weather = try JSONDecoder().decode(WeatherData.self, from: data)
-                print(weather)
+                let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
+                DispatchQueue.main.async{
+                    complition(weatherData)
+                    
+                }
+                
             } catch let error {
-                print(error.localizedDescription)
+                print(error)
             }
         }.resume()
     }
-    
-//    func fetchData(cityName: String, completion: @escaping(WeatherModel)->()) {
-//        let urlString = "\(weatherURL)&q=\(cityName)"
-//        guard let url = URL(string: urlString) else { return }
-//        
-//        URLSession.shared.dataTask(with: url) { (data, _, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                return
-//            }
-//            guard let data = data else { return }
-//            
-//        }.resume()
-//    }
-    
 }

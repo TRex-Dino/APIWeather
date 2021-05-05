@@ -15,42 +15,26 @@ class WeatherViewController: UIViewController {
     
     @IBOutlet var searchTextField: UITextField!
     
+    private var currentWeather: WeatherData?
+    
     @IBAction func searchPressed(_ sender: UIButton) {
-        //        searchTextField.text ?? ""
         searchTextField.endEditing(true)
     }
+    
     
 }
 extension WeatherViewController {
     
-    private func fetchWeather(cityName: String) {
-        let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=737d31778476ecdaa57002f152c41089&units=metric"
-        
-        let urlString = "\(weatherURL)&q=\(cityName)"
-        performRequest(urlString: urlString)
+    private func fetchDataWeather(urlString: String) {
+        WeatherManager.shared.fetchData(from: urlString) { weather in
+            self.currentWeather = weather
+            
+            self.cityLabel.text = self.currentWeather?.name
+            self.temperatureLabel.text = String(self.currentWeather?.main?.temp ?? 0)
+            self.weatherLabel.text = self.currentWeather?.weather?.first?.description
+        }
     }
     
-    private func performRequest(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No error description")
-                return }
-            DispatchQueue.main.async {
-                do {
-                    let weather = try JSONDecoder().decode(WeatherData.self, from: data)
-                    self.cityLabel.text = weather.name ?? "Not correct city"
-                    let tempString = String(format: "%.1f", weather.main?.temp ?? 0)
-                    self.temperatureLabel.text = tempString
-                    self.weatherLabel.text = weather.weather?.first?.description ?? "0"
-                } catch let error {
-                    print(error.localizedDescription)
-                }
-            }
-            
-        }.resume()
-    }
 }
 
 extension WeatherViewController: UITextFieldDelegate {
@@ -68,9 +52,9 @@ extension WeatherViewController: UITextFieldDelegate {
         if let city = searchTextField.text {
             if city.contains(" ") {
                 let newCity = city.components(separatedBy: " ").joined(separator: "+")
-                fetchWeather(cityName: newCity)
+                fetchDataWeather(urlString: newCity)
             } else {
-                fetchWeather(cityName: city)
+                fetchDataWeather(urlString: city)
             }
         }
         searchTextField.text = ""
